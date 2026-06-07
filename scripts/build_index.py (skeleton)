@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""
+build_index.py
+
+Prototype implementation of the Resilience Index.
+
+This script combines clinical and microbiome resistome
+features into a composite resilience score.
+
+Current method:
+1. Merge clinical and resistome tables
+2. Standardize all features
+3. Compute first principal component (PCA)
+4. Invert sign so larger values indicate greater resilience
+
+Future versions may incorporate:
+- domain-specific weighting
+- longitudinal trajectories
+- multi-omics integration
+- outcome-based calibration
+"""
+
+import argparse
+import pandas as pd
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+def load_tables(res_path, clin_path):
+"""Load clinical and resistome feature tables."""
+
+res = pd.read_csv(res_path, index_col=0)
+clin = pd.read_csv(clin_path, index_col=0)
+
+if res.empty:
+    raise ValueError("Resistome table is empty.")
+
+if clin.empty:
+    raise ValueError("Clinical table is empty.")
+
+return res, clin
+
+def merge_features(res, clin):
+"""Merge tables using sample IDs."""
+
+merged = clin.join(res, how="left")
+
+if merged.empty:
+    raise ValueError(
+        "Merged dataset is empty. "
+        "Check that sample IDs match between tables."
+    )
+
+merged = merged.fillna(0)
+
+return merged
+
+def compute_resilience(features):
+"""
+Generate prototype resilience score using PCA.
+"""
+
+scaler = StandardScaler()
+
+X = scaler.fit_transform(features)
+
+pca = PCA(
+    n_components=1,
+    random_state=42
+)
+
+score = -pca.fit_transform(X).ravel()
+
+results = pd.DataFrame(
+    {
+        "resilience_score": score
+    },
+    index=features.index
+)
+
+explained_variance = float(
+    pca.explained_variance_ratio_[0]
+)
+
+return results, explained_variance
+
+def main():
+
+parser = argparse.ArgumentParser(
+    description="Build prototype Resilience Index"
+)
+
+parser.add_argument(
+    "--resistome",
+    required=True,
+    help="Resistome feature table"
+)
+
+parser.add_argument(
+    "--clinical",
+    required=True,
+    help="Clinical feature table"
+)
+
+parser.add_argument(
+    "--out",
+    required=True,
+    help="Output resilience index CSV"
+)
+
+args = parser.parse_args()
+
+res, clin = load_tables(
+    args.resistome,
+    args.clinical
+)
+
+features = merge_features(
+    res,
+    clin
+)
+
+index_df, explained_variance = compute_resilience(
+    features
+)
+
+index_df.to_csv(args.out)
+
+print(
+    f"Generated Resilience Index for "
+    f"{len(index_df)} samples."
+)
+
+print(
+    f"PC1 explained variance: "
+    f"{explained_variance:.3f}"
+)
+
+if name == "main":
+main()
