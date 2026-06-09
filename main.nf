@@ -1,4 +1,4 @@
-#!/#!/usr/bin/env nextflow
+#!/usr/bin/env nextflow
 
 nextflow.enable.dsl=2
 
@@ -45,7 +45,7 @@ process preprocess {
 process resistome_profile {
     tag "resistome_profile"
     input:
-      path res_raw from resistome_raw_ch
+      path res_raw
     output:
       path 'resistome_table.csv' emit: res_table
     script:
