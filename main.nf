@@ -1,4 +1,6 @@
-#!/usr/bin/env nextflow
+#!/#!/usr/bin/env nextflow
+
+nextflow.enable.dsl=2
 
 params.input = params.input ?: "data/example"
 params.out   = params.out   ?: "results"
@@ -71,7 +73,7 @@ process report {
     input:
       path index_csv
     output:
-      path "${params.out}/*"
+      path "${params.out}"
     script:
     """
     mkdir -p ${params.out}/report
