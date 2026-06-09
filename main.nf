@@ -5,7 +5,7 @@ params.out   = params.out   ?: "results"
 
 Channel
     .fromPath("${params.input}/*")
-    .map{ file -> file } \
+    .map{ file -> file } 
     .set { input_files_ch }
 
 // Create explicit channels for the two example files we expect in the demo input folder
