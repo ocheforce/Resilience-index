@@ -20,9 +20,16 @@ input_files_ch
     .set { resistome_raw_ch }
 
 workflow {
-    preprocess_ch = preprocess(clinical_file_ch, resistome_raw_ch)
-    res_table_ch  = resistome_profile(preprocess_ch.resistome_raw)
-    index_ch      = build_index(res_table_ch, preprocess_ch.clinical_table)
+
+    preprocess_out = preprocess(clinical_file_ch, resistome_raw_ch)
+
+    clinical_table_ch = preprocess_out[0]
+    resistome_raw_ch2 = preprocess_out[1]
+
+    res_table_ch = resistome_profile(resistome_raw_ch2)
+
+    index_ch = build_index(res_table_ch, clinical_table_ch)
+
     report(index_ch)
 }
 
