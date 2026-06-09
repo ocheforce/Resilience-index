@@ -1,0 +1,11 @@
+sample_id,age,frailty_score,comorbidity_count,mmse_score,cognitive_decline
+SAMP001,72,3,2,28,0
+SAMP002,65,1,0,30,0
+SAMP003,81,4,3,22,1
+SAMP004,59,0,1,29,0
+SAMP005,77,2,2,25,1
+SAMP006,69,1,1,27,0
+SAMP007,85,5,4,20,1
+SAMP008,74,3,2,24,1
+SAMP009,62,0,0,31,0
+SAMP010,78,4,3,23,1
