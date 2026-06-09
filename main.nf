@@ -54,7 +54,8 @@ process resistome_profile {
     input:
       path res_raw
     output:
-      path 'resistome_table.csv' emit: res_table
+  path 'clinical_table.csv'
+  path 'resistome_raw.csv'
     script:
     """
     # demo: pass-through (replace with RGI/DeepARG wrapper for real profiling)
