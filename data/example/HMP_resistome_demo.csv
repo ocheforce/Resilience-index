@@ -1,0 +1,12 @@
+sample_id,gene_CTXM_abundance,gene_mecA_abundance,gene_ndm1_abundance,gene_tetM_abundance
+SAMP001,12.3,0.0,0.0,5.4
+SAMP002,0.0,0.5,0.0,1.2
+SAMP003,8.1,0.0,2.2,3.7
+SAMP004,0.0,0.0,0.0,0.8
+SAMP005,6.5,1.0,0.0,4.9
+SAMP006,0.0,0.0,0.0,2.1
+SAMP007,15.2,2.3,5.8,6.0
+SAMP008,9.0,0.0,0.0,3.3
+SAMP009,0.0,0.0,0.0,0.6
+SAMP010,7.7,0.8,1.1,4.2
+  
