@@ -26,7 +26,7 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 def load_tables(res_path, clin_path):
-"""Load clinical and resistome feature tables."""
+    """Load clinical and resistome feature tables."""
 
 res = pd.read_csv(res_path, index_col=0)
 clin = pd.read_csv(clin_path, index_col=0)
@@ -135,5 +135,5 @@ print(
     f"{explained_variance:.3f}"
 )
 
-if name == "main":
-main()
+if __name__ == "__main__":
+    main()
